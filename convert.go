@@ -18,7 +18,7 @@ func ConvertJSON2HQL(json string) (string, error) {
 	for _, v := range plists {
 		ddl = append(ddl, v.Print())
 	}
-	return PrintHeader() + "\n" + strings.Join(ddl, ",\n") + "\n" + PrintFooter(), nil
+	return PrintHeader() + strings.Join(ddl, ",") + PrintFooter(), nil
 }
 
 // LoadJSON reads json as a string and returns a list of printer.

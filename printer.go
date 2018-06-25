@@ -108,7 +108,7 @@ func NewMultipleArrayPrinter(depth int, colName, delimiter string, p Printer) *A
 
 // PrintHeader prints header of hive ddl.
 func PrintHeader() string {
-	return fmt.Sprint("create external table json_data(")
+	return fmt.Sprint("(")
 }
 
 // PrintFooter  prints footer of hive ddl.
@@ -118,27 +118,27 @@ func PrintFooter() string {
 
 // Print prints one line of hive ddl corresponding to the primitive type.
 func (p PrimitivePrinter) Print() string {
-	return fmt.Sprintf("%s%s%s%s", printIndent(p.depth), p.colName, p.delimiter, p.typeName)
+	return fmt.Sprintf("%s%s%s", p.colName, p.delimiter, p.typeName)
 }
 
 // Print prints one line of hive ddl corresponding to the primitive type.
 func (p StructPrinter) Print() string {
-	structPirntHeader := fmt.Sprintf("%s%s%s%s<\n", printIndent(p.depth), p.colName, p.delimiter, p.typeName)
-	structPirntFooter := fmt.Sprintf("\n%s>", printIndent(p.depth))
+	structPirntHeader := fmt.Sprintf("%s%s%s<", p.colName, p.delimiter, p.typeName)
+	structPirntFooter := ">"
 
 	var mPrints []string
 	for _, v := range p.members {
 		mPrints = append(mPrints, v.Print())
 	}
-	mPrint := strings.Join(mPrints, ",\n")
+	mPrint := strings.Join(mPrints, ",")
 
 	return structPirntHeader + mPrint + structPirntFooter
 }
 
 // Print prints one line of hive ddl corresponding to the array type.
 func (p ArrayPrinter) Print() string {
-	structPirntHeader := fmt.Sprintf("%s%s%s%s<%s", printIndent(p.headerDepth), p.colName, p.delimiter, p.typeName, p.headerNewline)
-	structPirntFooter := fmt.Sprintf("%s%s>", p.fotterNewline, printIndent(p.fotterDepth))
+	structPirntHeader := fmt.Sprintf("%s%s%s<", p.colName, p.delimiter, p.typeName)
+	structPirntFooter := ">"
 
 	return structPirntHeader + p.member.Print() + structPirntFooter
 }
