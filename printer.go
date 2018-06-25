@@ -1,4 +1,4 @@
-package main
+package j2h
 
 import (
 	"fmt"

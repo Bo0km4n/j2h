@@ -1,4 +1,4 @@
-package main
+package j2h
 
 import (
 	"strings"
@@ -9,7 +9,7 @@ import (
 )
 
 // ConvertJSONTOHQL reads json as a string and returns a hive ddl string.
-func ConvertJSONTOHQL(json string) (string, error) {
+func ConvertJSON2HQL(json string) (string, error) {
 	plists, err := LoadJSON(json)
 	if err != nil {
 		return "", err
